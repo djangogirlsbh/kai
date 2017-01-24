@@ -55,3 +55,10 @@ def order(request):
         context['time'] = time
 
     return render(request, 'menu/order.html', context)
+
+
+def recent(request):
+
+    items = Item.objects.all().order_by('-id')[:3]
+
+    return render(request, 'menu/recent.html', {'items': items})
