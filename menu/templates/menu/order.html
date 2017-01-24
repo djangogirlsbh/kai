@@ -1,0 +1,27 @@
+{% extends 'razvan/base.html' %}
+
+{% block title %}
+Order placed
+{% endblock title %}
+
+{% block content %}
+    <h1>Gobi Prost</h1>
+
+
+    {% if method == 'GET' %}
+        No order placed. To place an order go to  <a href="{% url 'menu:index' %}">index</a>.
+    {% elif method == 'POST' %}
+        Order placed. <br/>
+
+        Pick up at {{ time }}. <br/>
+
+        Items:
+        <ul>
+            {% for oitem in items %}
+                <li>{{ oitem.item.name }}: {{ oitem.item.price }}$ * {{ oitem.quantity }} pcs</li>
+            {% endfor %}
+        </ul>
+
+        Total {{ total }}$
+    {% endif %}
+{% endblock content %}
