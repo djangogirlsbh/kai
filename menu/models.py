@@ -17,3 +17,4 @@ class Order(models.Model):
 class OrderItem(models.Model):
     order = models.ForeignKey('Order')
     item = models.ForeignKey('Item')
+    quantity = models.IntegerField()
