@@ -6,13 +6,11 @@ from django.utils import timezone
 from django.contrib import messages
 
 from menu.models import Item, Order, OrderItem
-from .utils import update_count
 
 
 def index(request):
     return render(request, 'menu/index.html', {
         'items': Item.objects.all(),
-        'count': request.session.get('count', 0)
     })
 
 
@@ -66,83 +64,13 @@ def order(request):
 def recent(request):
     return render(request, 'menu/recent.html', {
         'items': Item.objects.all().order_by('-id')[:3],
-        'count': request.session.get('count', 0)
     })
 
 
 def deals(request):
     return render(request, 'menu/deals.html', {
             'items': Item.objects.filter(discount__gt=0),
-            'count': request.session.get('count', 0)
     })
-
-
-def add(request):
-    response = ''
-
-    if request.method == 'GET' and 'id' in request.GET:
-        item_id = request.GET['id']
-
-        try:
-            item = Item.objects.get(id=item_id)
-
-            basket = request.session.get('basket', {})
-
-            if item in basket:
-                basket[item] += 1
-            else:
-                basket[item] = 1
-
-            update_count(request.session)
-            request.session['basket'] = basket
-
-            # TODO: Remove debug print
-            print(basket)
-
-            response = 'true'
-        except Item.DoesNotExist:
-            print("Invalid item item: %s" % item_id)
-
-    if not response:
-        response = 'false'
-
-    return HttpResponse(response)
-
-
-def remove(request):
-    response = ''
-
-    if request.method == 'GET' and 'id' in request.GET:
-        item_id = request.GET['id']
-
-        try:
-            item = Item.objects.get(id=item_id)
-            basket = request.session.get('basket', {})
-
-            quantity = 1
-            if 'q' in request.GET:
-                quantity = int(request.GET['q'])
-
-            if item in basket:
-                basket[item] -= quantity
-
-                if basket[item] <= 0:
-                    del basket[item]
-
-                request.session['basket'] = basket
-                update_count(request.session)
-                response = 'true'
-
-            # TODO: Remove debug print
-            print(basket)
-
-        except Item.DoesNotExist:
-            print("Invalid item item: %s" % item_id)
-
-    if not response:
-        response = 'false'
-
-    return HttpResponse(response)
 
 
 

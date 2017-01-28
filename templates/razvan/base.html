@@ -25,7 +25,6 @@
     <!-- Font Awesome -->
     <script src="https://use.fontawesome.com/a0efe780a8.js"></script>
 
-
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
 
     {% block styles %}
@@ -64,11 +63,9 @@
                 <li id="basket">
                     <a href="#">
                         <i class="fa fa-shopping-basket" aria-hidden="true"></i>
-                        {% if count > 0 %}
-                            {{ count }} items
-                        {% else %}
-                            No items
-                        {% endif %}
+                        <span id="count">
+                            Not available
+                        </span>
                     </a>
                 </li>
             </ul>
@@ -87,10 +84,17 @@
 </div><!-- /.container -->
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
         integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
         crossorigin="anonymous"></script>
+
+<!-- Homebrew custom js -->
+<script>
+    window.add_url = "{% url 'api:add' %}";
+    window.count_url = "{% url 'api:count' %}";
+</script>
+<script src="{% static 'js/base.js' %}"></script>
 </body>
 </html>

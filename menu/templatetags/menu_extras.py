@@ -17,8 +17,10 @@ def display(items, columns):
         html += '<img src="media/{}" class="img-responsive item-img"/><br>'\
             .format(item.picture)
 
-        html += '<a href="{}?id={}" class="btn btn-primary pull-right">+</a>'\
-            .format(reverse('menu:add'), item.id)
+        html += '<div data-id="{}" class="add-basket btn btn-primary pull-right">' \
+                'Add <i class="fa fa-plus" aria-hidden="true"></i>' \
+                '</div>'\
+            .format(item.id)
 
         html += '<label for="input-{}">{}'\
             .format(item.id, item.name)
