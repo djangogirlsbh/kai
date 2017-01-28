@@ -6,11 +6,13 @@ from django.utils import timezone
 from django.contrib import messages
 
 from menu.models import Item, Order, OrderItem
+from .utils import update_count
 
 
 def index(request):
     return render(request, 'menu/index.html', {
         'items': Item.objects.all(),
+        'count': request.session.get('count', 0)
     })
 
 
@@ -62,13 +64,17 @@ def order(request):
 
 
 def recent(request):
-    items = Item.objects.all().order_by('-id')[:3]
-    return render(request, 'menu/recent.html', {'items': items})
+    return render(request, 'menu/recent.html', {
+        'items': Item.objects.all().order_by('-id')[:3],
+        'count': request.session.get('count', 0)
+    })
 
 
 def deals(request):
-    items = Item.objects.filter(discount__gt=0)
-    return render(request, 'menu/deals.html', {'items': items})
+    return render(request, 'menu/deals.html', {
+            'items': Item.objects.filter(discount__gt=0),
+            'count': request.session.get('count', 0)
+    })
 
 
 def add(request):
@@ -87,6 +93,7 @@ def add(request):
             else:
                 basket[item] = 1
 
+            update_count(request.session)
             request.session['basket'] = basket
 
             # TODO: Remove debug print
@@ -123,6 +130,7 @@ def remove(request):
                     del basket[item]
 
                 request.session['basket'] = basket
+                update_count(request.session)
                 response = 'true'
 
             # TODO: Remove debug print
@@ -135,4 +143,7 @@ def remove(request):
         response = 'false'
 
     return HttpResponse(response)
+
+
+
 

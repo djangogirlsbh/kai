@@ -6,3 +6,8 @@ body {
     position: relative;
     top: -3px;
 }
+
+#basket {
+    background: #080808;
+    color: #fff;
+}

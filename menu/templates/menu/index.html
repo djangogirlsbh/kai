@@ -9,11 +9,6 @@
 {% block content %}
     <h1>Menu</h1>
 
-    <form method="POST" action="{% url 'menu:order' %}">
-        {% csrf_token %}
+    {{ items|display:3 }}
 
-        {{ items|display:3 }}
-
-        <input type="submit" class="btn btn-success btn-lg pull-right" value="Place order">
-    </form>
 {% endblock content %}
