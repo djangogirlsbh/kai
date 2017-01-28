@@ -11,8 +11,14 @@ Order placed
     {% if method == 'GET' %}
         No order placed. To place an order go to  <a href="{% url 'menu:index' %}">index</a>.
     {% elif method == 'POST' %}
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% else %}
         Order placed. <br/>
-
         Pick up at {{ time }}. <br/>
 
         Items:
@@ -23,5 +29,8 @@ Order placed
         </ul>
 
         Total {{ total }}$
+
+        {% endif %}
+
     {% endif %}
 {% endblock content %}

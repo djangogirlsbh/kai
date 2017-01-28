@@ -8,6 +8,11 @@ class Item(models.Model):
     picture = models.FileField()
     discount = models.IntegerField()
 
+    def final_price(self):
+        if self.discount > 0:
+            return (100-self.discount)/100*self.price
+        else:
+            return self.price
 
 class Order(models.Model):
     finished_time = models.DateTimeField()

@@ -1,24 +1,13 @@
 {% extends 'razvan/base.html' %}
+{% load menu_extras %}
 
 {% block title %}
 Order placed
 {% endblock title %}
 
 {% block content %}
-    <h1>Deals</h1>
+    <h1>Deals<br/><small>get them while they're hot</small></h1>
 
 
-    <div class="row">
-        {% for item in items %}
-            <div class="col-sm-4 item">
-            <img src="media/{{ item.picture }}" class="img-responsive item-img"/><br>
-            <label for="input-{{ item.id }}">{{ item.name }} <small>{{ item.price }}$</small></label><br>
-            <p>{{ item.description }}</p>
-            </div>
-
-            {% if forloop.counter|divisibleby:3 %}
-                </div><div class="row">
-            {% endif %}
-        {% endfor %}
-        </div>
+    {{ items|display:3 }}
 {% endblock content %}

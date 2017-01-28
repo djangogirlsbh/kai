@@ -2,6 +2,7 @@ from datetime import timedelta
 
 from django.shortcuts import render
 from django.utils import timezone
+from django.contrib import messages
 
 from menu.models import Item, Order, OrderItem
 
@@ -44,6 +45,8 @@ def order(request):
                     o_item = OrderItem.objects.create(item=item, order=current_order, quantity=quantity)
 
                     items.append(o_item)
+                else:
+                    messages.add_message(request, messages.INFO, 'One or more products have a negative quantity')
             except Item.DoesNotExist:
                 print("Invalid item item: %s" % item_id)
 
@@ -60,6 +63,7 @@ def order(request):
 def recent(request):
     items = Item.objects.all().order_by('-id')[:3]
     return render(request, 'menu/recent.html', {'items': items})
+
 
 def deals(request):
     items = Item.objects.filter(discount__gt=0)
