@@ -3,7 +3,10 @@ from django.http import JsonResponse
 from django.shortcuts import render
 
 # Create your views here.
-from menu.models import Item
+from django.utils import timezone
+
+from api.utils import clean_orders
+from menu.models import Item, Order
 
 
 def add(request):
@@ -79,3 +82,9 @@ def count(request):
         items += v
 
     return JsonResponse({'count': items})
+
+
+def clean(request):
+    return JsonResponse({"cleaned": clean_orders()})
+
+

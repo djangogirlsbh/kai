@@ -1,36 +1,26 @@
 {% extends 'razvan/base.html' %}
 
 {% block title %}
-Order placed
+    Order placed
 {% endblock title %}
 
 {% block content %}
-    <h1>Your order:</h1>
+{% if not processed or processed == False %}
+    <div class="page-header">
+        <h1>Error</h1>
+    </div>
 
+    To place your order go to <a href="{% url 'menu:basket' %}">your basket</a>.
+{% elif processed == True %}
+    <div class="page-header">
+        <h1>Done
+            <small>Your order has been places!</small>
+        </h1>
+    </div>
+    <p><strong>Estimated pickup time:</strong> {{ time }}</p>
+    <p><strong>Your order reference:</strong> #{{ id }}</p>
+    <p><strong>Your total:</strong> {{ total }}$</p>
 
-    {% if method == 'GET' %}
-        No order placed. To place an order go to  <a href="{% url 'menu:index' %}">index</a>.
-    {% elif method == 'POST' %}
-        {% if messages %}
-        <ul class="messages">
-            {% for message in messages %}
-            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-            {% endfor %}
-        </ul>
-        {% else %}
-        Order placed. <br/>
-        Pick up at {{ time }}. <br/>
+{% endif %}
 
-        Items:
-        <ul>
-            {% for oitem in items %}
-                <li>{{ oitem.item.name }}: {{ oitem.item.price }}$ * {{ oitem.quantity }} pcs</li>
-            {% endfor %}
-        </ul>
-
-        Total {{ total }}$
-
-        {% endif %}
-
-    {% endif %}
 {% endblock content %}

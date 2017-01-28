@@ -8,7 +8,7 @@ register = template.Library()
 
 @register.filter
 def selection_price(item, quanity):
-    return item.price * quanity
+    return item.final_price() * quanity
 
 @register.filter
 def display(items, columns):
