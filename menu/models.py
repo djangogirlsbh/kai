@@ -14,6 +14,10 @@ class Item(models.Model):
         else:
             return self.price
 
+    def __str__(self):
+        return "{} {}".format(self.name, self.final_price())
+
+
 class Order(models.Model):
     finished_time = models.DateTimeField()
     total_price = models.FloatField()

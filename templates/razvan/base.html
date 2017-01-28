@@ -42,10 +42,17 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="{% url 'menu:index' %}">Home</a></li>
-                <li><a href="{% url 'menu:recent' %}">New products</a></li>
-                <li><a href="{% url 'menu:deals' %}">Deals</a></li>
-                <li><a href="#contact">Contact</a></li>
+                {% url "menu:index" as url %}
+                <li {% if url == request.path %}class="active"{% endif %}><a href="{% url 'menu:index' %}">Home</a></li>
+
+                {% url "menu:new" as url %}
+                <li {% if url == request.path %}class="active"{% endif %}><a href="{% url 'menu:new' %}">New</a></li>
+
+                {% url "menu:deals" as url %}
+                <li {% if url == request.path %}class="active"{% endif %}><a href="{% url 'menu:deals' %}">Deals</a></li>
+
+{#                {% url "projects:index" as url %}#}
+                <li {% if url == request.path %}class="active"{% endif %}><a href="#contact">Contact</a></li>
             </ul>
         </div><!--/.nav-collapse -->
     </div>
