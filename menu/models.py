@@ -6,6 +6,7 @@ class Item(models.Model):
     price = models.FloatField()
     description = models.TextField()
     picture = models.FileField()
+    discount = models.IntegerField()
 
 
 class Order(models.Model):

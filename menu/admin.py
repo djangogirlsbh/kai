@@ -3,7 +3,7 @@ from .models import Item, Order, OrderItem
 
 
 class ItemAdmin(admin.ModelAdmin):
-    list_display = ('name', 'price')
+    list_display = ('name', 'price', 'discount')
 
 
 class OrderAdmin(admin.ModelAdmin):

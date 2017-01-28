@@ -58,7 +58,9 @@ def order(request):
 
 
 def recent(request):
-
     items = Item.objects.all().order_by('-id')[:3]
-
     return render(request, 'menu/recent.html', {'items': items})
+
+def deals(request):
+    items = Item.objects.filter(discount__gt=0)
+    return render(request, 'menu/deals.html', {'items': items})
