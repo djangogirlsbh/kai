@@ -23,4 +23,5 @@ urlpatterns = [
     url(r'^order$', views.order, name="order"),
     url(r'^recent$', views.recent, name="new"),
     url(r'^deals$', views.deals, name="deals"),
+    url(r'^basket$', views.basket, name="basket"),
 ]

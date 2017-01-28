@@ -2,11 +2,15 @@
 {% load menu_extras %}
 
 {% block title %}
-Order placed
+    Deals
 {% endblock title %}
 
 {% block content %}
-    <h1>Deals<br/><small>get them while they're hot</small></h1>
+    <div class="page-header">
+        <h1>Deals
+            <small>grab while they're hot</small>
+        </h1>
+    </div>
 
 
     {{ items|display:3 }}

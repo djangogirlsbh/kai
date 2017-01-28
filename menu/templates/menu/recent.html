@@ -6,7 +6,11 @@ Order placed
 {% endblock title %}
 
 {% block content %}
-    <h1>Recent items</h1>
+    <div class="page-header">
+        <h1>Recent
+            <small>newest additions to our menu</small>
+        </h1>
+    </div>
 
 
     {{ items|display:3 }}

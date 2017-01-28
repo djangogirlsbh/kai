@@ -73,5 +73,18 @@ def deals(request):
     })
 
 
+def basket(request):
+    items = request.session.get('basket', {})
+
+    total = 0
+    for item, quantity in items.items():
+        total += item.price * quantity
+
+    return render(request, 'menu/basket.html', {
+        'items': items,
+        'total': total,
+    })
+
+
 
 

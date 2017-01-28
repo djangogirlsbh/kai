@@ -11,3 +11,36 @@ body {
     background: #080808;
     color: #fff;
 }
+
+.add-basket {
+    width: 100%;
+}
+
+.item {
+    margin-top: 15px;
+}
+
+.basket > .row {
+    padding-top: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.basket .col-price {
+    font-size: 1.4em;
+    position: relative;
+    top: 25px;
+}
+
+.basket .total {
+    padding: 35px 50px;
+    text-align: right;
+}
+
+.basket .total strong {
+    font-size: 1.6em;
+}
+
+.basket .total strong span {
+    color: #CC3434;
+}

@@ -41,7 +41,10 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{% url 'menu:index' %}">Cantina Facultatii</a>
+            <a class="navbar-brand" href="{% url 'menu:index' %}">
+                <i class="fa fa-cutlery" aria-hidden="true"></i>
+                Cantina Facultatii
+            </a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
@@ -61,7 +64,7 @@
 
             <ul class="nav navbar-nav navbar-right">
                 <li id="basket">
-                    <a href="#">
+                    <a href="{% url 'menu:basket' %}">
                         <i class="fa fa-shopping-basket" aria-hidden="true"></i>
                         <span id="count">
                             Not available

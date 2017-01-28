@@ -1,0 +1,41 @@
+{% extends 'razvan/base.html' %}
+{% load staticfiles %}
+{% load menu_extras %}
+
+{% block content %}
+    <div class="page-header">
+        <h1>Shopping basket</h1>
+    </div>
+
+    <div class="basket clearfix">
+    {% for item, quantity in items.items %}
+        <div class="row">
+            <div class="col-sm-2">
+                <img alt="{{ item.name }}" src="media/{{ item.picture }}" class="img-responsive item-img"/>
+            </div>
+            <div class="col-sm-8">
+                <h4>
+                    <strong>{{ item.name }}</strong>
+                    <span class="quantity">{% if quantity > 1 %}{{ quantity}} pieces{% endif %}</span>
+                </h4>
+                <p>{{ item.description }}</p>
+                <small><a href="#">Remove one</a> | <a href="#">Remove all</a></small>
+            </div>
+
+            <div class="col-sm-2 col-price">
+                <strong>{{ item|selection_price:quantity }}$</strong>
+            </div>
+        </div>
+    {% endfor %}
+
+    <div class="total">
+        <strong>Total: <span class="price">{{ total }}$</span></strong><br />
+
+        <div role="button" class="btn btn-primary btn-lg">Place order <i class="fa fa-arrow-right" aria-hidden="true"></i></div>
+    </div>
+
+
+    </div>
+
+
+{% endblock content %}
