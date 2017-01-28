@@ -13,6 +13,7 @@ Order placed
             <div class="col-sm-4 item">
             <img src="media/{{ item.picture }}" class="img-responsive item-img"/><br>
             <label for="input-{{ item.id }}">{{ item.name }} <small>{{ item.price }}$</small></label><br>
+            <p>{{ item.description }}</p>
             </div>
 
             {% if forloop.counter|divisibleby:3 %}

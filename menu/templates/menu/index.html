@@ -16,6 +16,7 @@
             <div class="col-sm-4 item">
             <img src="media/{{ item.picture }}" class="img-responsive item-img"/><br>
             <label for="input-{{ item.id }}">{{ item.name }} <small>{{ item.price }}$</small></label><br>
+            <p>{{ item.description }}</p>
             <input type='number' size='10' id='input-{{ item.id }}' name='item-{{ item.id }}' value='0' /><br>
             </div>
 
