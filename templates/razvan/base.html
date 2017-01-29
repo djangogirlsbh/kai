@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load sass_tags %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -25,7 +26,7 @@
     <!-- Font Awesome -->
     <script src="https://use.fontawesome.com/a0efe780a8.js"></script>
 
-    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% sass_src 'css/base.scss' %}" type="text/css" />
 
     {% block styles %}
     {% endblock %}
