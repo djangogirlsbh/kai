@@ -13,7 +13,7 @@ def selection_price(item, quanity):
 @register.filter
 def display(items, columns):
 
-    html = '<div class="row">'
+    html = '<div class="row full-height">'
     for idx, item in enumerate(items):
         html += '<div class="col-sm-{} item">'\
             .format(int(12 / columns))
@@ -29,11 +29,10 @@ def display(items, columns):
 
         html += '<div class="caption">' \
                 '<h3>{} <small>{}</small></h3>' \
-                '<p>{}</p>' \
                 '<div data-id="{}" class="add-basket btn btn-primary">' \
                 'Add to basket <i class="fa fa-shopping-basket" aria-hidden="true"></i>' \
                 '</div>' \
-            .format(item.name, price_label, item.description, item.id)
+            .format(item.name, price_label, item.id)
 
         html += '</div></div>'
 

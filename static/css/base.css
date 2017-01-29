@@ -17,7 +17,18 @@ body {
 }
 
 .item {
-    margin-top: 15px;
+    margin-bottom: 50px;
+}
+
+.item .caption {
+    position: relative;
+    height: 100%;
+    padding-bottom: 35px;
+}
+
+.item .caption > div{
+    position: absolute;
+    bottom: 0px;
 }
 
 .basket > .row {
@@ -43,4 +54,16 @@ body {
 
 .basket .total strong span {
     color: #CC3434;
+}
+
+.row {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display:         flex;
+  flex-wrap: wrap;
+}
+.row > [class*='col-'] {
+  display: flex;
+  flex-direction: column;
 }
