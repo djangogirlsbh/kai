@@ -30,33 +30,6 @@ body {
   }
 }
 
-.basket {
-  .row {
-    padding-top: 20px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #ddd;
-  }
-
-  .col-price {
-    font-size: 1.4em;
-    position: relative;
-    top: 25px;
-  }
-}
-
-.total {
-  padding: 35px 50px;
-  text-align: right;
-
-  strong {
-    font-size: 1.6em;
-
-    span {
-      color: #CC3434;
-    }
-  }
-}
-
 .row {
   display: -webkit-box;
   display: -webkit-flex;
@@ -69,3 +42,4 @@ body {
     flex-direction: column;
   }
 }
+

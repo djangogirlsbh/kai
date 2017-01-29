@@ -1,9 +1,14 @@
-{% extends 'razvan/base.html' %}
+{% extends 'kai/base.html' %}
 {% load menu_extras %}
+{% load sass_tags %}
 
 {% block title %}
     Finder
 {% endblock title %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% sass_src 'css/basket.scss' %}" type="text/css"/>
+{% endblock %}
 
 {% block content %}
     <div class="page-header">
