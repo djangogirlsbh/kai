@@ -29,7 +29,7 @@ def order(request):
 
         # For every item propery create an OrderItem and finally an order, while calculating a total
         for item, quantity in request.session.get('basket', {}).items():
-            total += item.price * float(quantity)
+            total += item.final_price() * float(quantity)
             OrderItem.objects.create(item=item, order=current_order, quantity=quantity)
 
         current_order.total_price = total
@@ -62,7 +62,7 @@ def basket(request):
 
     total = 0
     for item, quantity in items.items():
-        total += item.price * quantity
+        total += item.final_price() * quantity
 
     return render(request, 'menu/basket.html', {
         'items': items,
