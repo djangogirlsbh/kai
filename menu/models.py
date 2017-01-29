@@ -75,6 +75,8 @@ def resize_image(sender, instance, *args, **kwargs):
 
         image = image.crop((0, padding, width, new_height+padding))
 
+    image.thumbnail((500, 500), Image.ANTIALIAS)
+
     # Convert the PIL Image to bytes
     output = BytesIO()
     image.save(output, format="JPEG", quality=90)
