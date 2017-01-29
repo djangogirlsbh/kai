@@ -91,6 +91,11 @@ def basket(request):
         'total': total,
     })
 
+def item(request, id):
+    item = get_object_or_404(Item, pk=id)
 
+    return render(request, 'menu/item.html', {
+        'item': item
+    })
 
 

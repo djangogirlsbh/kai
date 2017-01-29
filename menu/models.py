@@ -56,7 +56,7 @@ class OrderItem(models.Model):
 
 @receiver(post_save, sender=Item)
 def resize_image(sender, instance, *args, **kwargs):
-    imagefield = instance.picture
+    imagefield = instance.image
     oldname = imagefield.name
     if not oldname:
         return

@@ -16,8 +16,6 @@ $(document).ready(function () {
         })
     };
 
-    update_count();
-
     $('.add-basket').click(function () {
         $.ajax({
             url: window.add_url,
@@ -30,5 +28,8 @@ $(document).ready(function () {
             }
         });
     });
+
+    update_count();
+    $("img").addClass('img-responsive');
 
 });

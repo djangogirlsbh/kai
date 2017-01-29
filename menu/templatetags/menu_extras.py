@@ -1,5 +1,4 @@
 from django import template
-import re
 
 from django.urls import reverse
 from django.utils.safestring import mark_safe
@@ -12,8 +11,8 @@ def display(items, columns):
     for idx, item in enumerate(items):
         html += '<div class="col-sm-{} item">' \
             .format(int(12 / columns))
-        html += '<img alt="{}" src="{}" class="img-responsive item-img"/>' \
-            .format(item.name, item.image_url())
+        html += '<a href="{}"><img alt="{}" src="{}"/></a>' \
+            .format(reverse("menu:item", kwargs={"id": item.pk}), item.name, item.image_url())
 
         if item.discount > 0:
             price_label = '<span class="label label-danger"><s>{}$</s> {}$ {}% off</span>' \
@@ -49,11 +48,11 @@ def basketify(items, editable):
 
         html += '<div class="row">\
                     <div class="col-sm-2">\
-                        <img alt="{}" src="{}" class="img-responsive item-img"/>\
+                        <img alt="{}" src="{}"/>\
                     </div>\
                     <div class="col-sm-8">\
                         <h4>\
-                            <strong>{}</strong>\
+                            <strong><a href="{}">{}</a></strong>\
                             <span class="quantity">{}</span>\
                         </h4>\
                         <p>{}</p>\
@@ -63,7 +62,7 @@ def basketify(items, editable):
                         <strong>{}$</strong>\
                     </div>\
                 </div>'.format(item.name, item.image_url(),
-                               item.name,
+                               reverse("menu:item", kwargs={"id": item.pk}), item.name,
                                pieces,
                                item.description,
                                edit,

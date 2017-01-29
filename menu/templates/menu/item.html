@@ -1,0 +1,34 @@
+{% extends 'razvan/base.html' %}
+{% load sass_tags %}
+
+{% block title %}
+    {{ item.name }}
+{% endblock title %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% sass_src 'css/item.scss' %}" type="text/css"/>
+{% endblock %}
+
+{% block content %}
+    <div class="page-header">
+        <h1>
+            {{ item.name }}
+            <small>{{ item.final_price }}$</small>
+        </h1>
+    </div>
+
+    <div class="item-overview">
+        <div class="row">
+            <div class="col-sm-4">
+                <img src="{{ item.image_url }}" alt="{{ item.name }}"/>
+                <div data-id="{{ item.pk }}" class="add-basket btn btn-primary">
+                    Add to basket <i class="fa fa-shopping-basket" aria-hidden="true"></i>
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <p>{{ item.description }}</p>
+            </div>
+        </div>
+
+    </div>
+{% endblock content %}
