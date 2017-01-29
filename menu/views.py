@@ -1,7 +1,8 @@
 from datetime import timedelta
+from functools import reduce
 
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
 from django.contrib import messages
 
@@ -36,7 +37,7 @@ def order(request):
         current_order.save()
 
         context['total'] = total
-        context['id'] = current_order.id
+        context['ref_id'] = current_order.ref_id
         context['time'] = time
         context['processed'] = True
 
@@ -55,6 +56,27 @@ def deals(request):
     return render(request, 'menu/deals.html', {
             'items': Item.objects.filter(discount__gt=0),
     })
+
+
+def finder(request):
+    context = {'method': request.method}
+    if request.method == 'POST':
+        if 'ref_id' in request.POST:
+            try:
+                order_items = OrderItem.objects.filter(order__ref_id=request.POST['ref_id'])
+                items = {}
+                total = 0.0
+                for oi in order_items:
+                    items[oi.item] = oi.quantity
+                    total += oi.quantity * oi.item.final_price()
+
+                context['items'] = items
+                context['total'] = total
+
+            except Item.DoesNotExist:
+                print("ERROR")
+
+    return render(request, 'menu/finder.html', context)
 
 
 def basket(request):

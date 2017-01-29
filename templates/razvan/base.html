@@ -26,7 +26,7 @@
     <!-- Font Awesome -->
     <script src="https://use.fontawesome.com/a0efe780a8.js"></script>
 
-    <link rel="stylesheet" href="{% sass_src 'css/base.scss' %}" type="text/css" />
+    <link rel="stylesheet" href="{% sass_src 'css/base.scss' %}" type="text/css"/>
 
     {% block styles %}
     {% endblock %}
@@ -59,8 +59,9 @@
                 <li {% if url == request.path %}class="active"{% endif %}><a href="{% url 'menu:deals' %}">Deals</a>
                 </li>
 
-                {#                {% url "projects:index" as url %}#}
-                <li {% if url == request.path %}class="active"{% endif %}><a href="#contact">Contact</a></li>
+                {% url "menu:finder" as url %}
+                <li {% if url == request.path %}class="active"{% endif %}><a href="{% url 'menu:finder' %}">Finder</a>
+                </li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">

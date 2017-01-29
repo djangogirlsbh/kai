@@ -1,4 +1,5 @@
 import os
+import uuid
 from io import BytesIO
 
 from PIL import Image
@@ -8,24 +9,27 @@ from django.db import models
 from django.db.models.signals import pre_save, post_save
 from django.dispatch import receiver
 from django.template.defaultfilters import slugify
-from django.utils.six import StringIO
-from django.core.files.uploadedfile import InMemoryUploadedFile
+
+from kai.settings import MEDIA_URL
 
 IMAGE_RATIO = 16.0/9
 
 
 class Item(models.Model):
     name = models.CharField(max_length=128)
-    price = models.FloatField()
+    base_price = models.FloatField()
     description = models.TextField()
-    picture = models.ImageField()
+    image = models.ImageField()
     discount = models.IntegerField()
 
     def final_price(self):
         if self.discount > 0:
-            return (100-self.discount)/100*self.price
+            return (100-self.discount)/100*self.base_price
         else:
-            return self.price
+            return self.base_price
+
+    def image_url(self):
+        return "{}{}".format(MEDIA_URL, self.image)
 
     def __str__(self):
         return "{} {}".format(self.name, self.final_price())
@@ -35,12 +39,19 @@ class Order(models.Model):
     finished_time = models.DateTimeField()
     total_price = models.FloatField()
     active = models.BooleanField(default=True)
+    ref_id = models.UUIDField(default=uuid.uuid4, editable=False)
+
+    def __str__(self):
+        return "ID {}: {}$".format(self.id, self.total_price)
 
 
 class OrderItem(models.Model):
     order = models.ForeignKey('Order')
     item = models.ForeignKey('Item')
     quantity = models.IntegerField()
+
+    def __str__(self):
+        return "ID {}: {} @ {} x {}".format(self.order.id, self.item.name, self.item.final_price(), self.quantity)
 
 
 @receiver(post_save, sender=Item)

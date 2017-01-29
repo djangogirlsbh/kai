@@ -1,4 +1,3 @@
-
 # Created by https://www.gitignore.io/api/python,django,pycharm
 
 ### Python ###
@@ -156,3 +155,4 @@ modules.xml
 # End of https://www.gitignore.io/api/python,django,pycharm
 *.css
 *.css.map
+**migrations*
