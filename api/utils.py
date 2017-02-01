@@ -10,3 +10,11 @@ def clean_orders():
         o.save()
 
     return len(orders)
+
+
+def calculate_total(items):
+    t = 0
+    for item, quantity in items.items():
+        t += item.final_price() * quantity
+
+    return t

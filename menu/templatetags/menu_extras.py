@@ -5,6 +5,7 @@ from django.utils.safestring import mark_safe
 
 register = template.Library()
 
+
 @register.filter
 def display(items, columns):
     html = '<div class="row full-height">'
@@ -44,7 +45,14 @@ def basketify(items, editable):
 
     for item, quantity in items.items():
         pieces = "{} pieces".format(quantity) if quantity > 1 else ''
-        edit = '<small><a href="#">Remove one</a> | <a href="#">Remove all</a></small>' if editable else ''
+        edit = ''
+        if editable:
+            edit = '<small><div class="btn btn-default btn-xs remove-item" ' \
+                   'data-id="{}" data-quantity="1">Remove one</div>'.format(item.id)
+            if quantity > 1:
+                edit += '<div class="btn btn-default btn-xs remove-item" ' \
+                        'data-id="{}" data-quantity="{}">Remove all</div>'.format(item.id, quantity)
+            edit += '</small>'
 
         html += '<div class="row">\
                     <div class="col-sm-2">\
@@ -53,20 +61,18 @@ def basketify(items, editable):
                     <div class="col-sm-8">\
                         <h4>\
                             <strong><a href="{}">{}</a></strong>\
-                            <span class="quantity">{}</span>\
+                            <span class="quantity" data-id="{}">{}</span>\
                         </h4>\
-                        <p>{}</p>\
                         {}\
                     </div>\
                     <div class="col-sm-2 col-price">\
-                        <strong>{}$</strong>\
+                        <strong class="subtotal" data-id="{}">{}$</strong>\
                     </div>\
                 </div>'.format(item.name, item.image_url(),
                                reverse("menu:item", kwargs={"id": item.pk}), item.name,
-                               pieces,
-                               item.description,
+                               item.id, pieces,
                                edit,
-                               item.final_price() * quantity)
+                               item.id, item.final_price() * quantity)
 
     html += '</div>'
     return mark_safe(html)

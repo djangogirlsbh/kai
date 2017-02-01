@@ -5,7 +5,7 @@ from django.shortcuts import render
 # Create your views here.
 from django.utils import timezone
 
-from api.utils import clean_orders
+from api.utils import clean_orders, calculate_total
 from menu.models import Item, Order
 
 
@@ -57,14 +57,17 @@ def remove(request):
             if item in basket:
                 basket[item] -= quantity
 
+                json['quantity'] = 0
+                json['subtotal'] = 0
+
                 if basket[item] <= 0:
                     del basket[item]
+                else:
+                    json['quantity'] = basket[item]
+                    json['subtotal'] = item.final_price() * basket[item]
 
                 request.session['basket'] = basket
                 json['success'] = True
-
-            # TODO: Remove debug print
-            print(basket)
 
         except Item.DoesNotExist:
             print("Invalid item item: %s" % item_id)
@@ -86,5 +89,14 @@ def count(request):
 
 def clean(request):
     return JsonResponse({"cleaned": clean_orders()})
+
+
+def empty(request):
+    request.session['basket'] = {}
+    return JsonResponse({"success": True})
+
+
+def total(request):
+    return JsonResponse({"total": calculate_total(request.session.get("basket", {}))})
 
 

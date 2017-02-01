@@ -6,7 +6,7 @@ from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
 from django.contrib import messages
 
-from api.utils import clean_orders
+from api.utils import clean_orders, calculate_total
 from menu.models import Item, Order, OrderItem
 
 
@@ -82,20 +82,17 @@ def finder(request):
 def basket(request):
     items = request.session.get('basket', {})
 
-    total = 0
-    for item, quantity in items.items():
-        total += item.final_price() * quantity
-
     return render(request, 'menu/basket.html', {
         'items': items,
-        'total': total,
+        'total': calculate_total(items),
     })
 
-def item(request, id):
-    item = get_object_or_404(Item, pk=id)
+
+def item(request, item_id):
+    product = get_object_or_404(Item, pk=item_id)
 
     return render(request, 'menu/item.html', {
-        'item': item
+        'item': product
     })
 
 

@@ -23,4 +23,6 @@ urlpatterns = [
     url(r'^remove$', views.remove, name="remove"),
     url(r'^count$', views.count, name="count"),
     url(r'^clean$', views.clean, name="clean"),
+    url(r'^total$', views.total, name="total"),
+    url(r'^empty$', views.empty, name="empty"),
 ]
