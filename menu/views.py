@@ -25,7 +25,7 @@ def order(request):
         clean_orders()
 
         # Add 90 seconds for every order already placed
-        time = timezone.now() + timedelta(minutes=Order.objects.filter(active=True).count() * 1.5)
+        time = timezone.now() + timedelta(minutes=Order.objects.filter(active=True).count() * 1.5 + 5)
         current_order = Order.objects.create(finished_time=time, total_price=-1)
 
         # For every item propery create an OrderItem and finally an order, while calculating a total

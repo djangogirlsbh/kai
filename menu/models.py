@@ -20,7 +20,7 @@ class Item(models.Model):
     base_price = models.FloatField()
     description = models.TextField()
     image = models.ImageField()
-    discount = models.IntegerField()
+    discount = models.IntegerField(default=0)
 
     def final_price(self):
         if self.discount > 0:

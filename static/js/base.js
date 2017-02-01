@@ -11,7 +11,7 @@ $(document).ready(function () {
                 var text = "No";
                 if (count > 0)
                     text = count;
-                $('#count').html(text + " items");
+                $('#count').text(text + " items");
             }
         })
     };

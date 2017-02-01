@@ -13,7 +13,7 @@ def display(items, columns):
         html += '<div class="col-sm-{} item">' \
             .format(int(12 / columns))
         html += '<a href="{}"><img alt="{}" src="{}"/></a>' \
-            .format(reverse("menu:item", kwargs={"id": item.pk}), item.name, item.image_url())
+            .format(reverse("menu:item", kwargs={"item_id": item.pk}), item.name, item.image_url())
 
         if item.discount > 0:
             price_label = '<span class="label label-danger"><s>{}$</s> {}$ {}% off</span>' \
@@ -69,7 +69,7 @@ def basketify(items, editable):
                         <strong class="subtotal" data-id="{}">{}$</strong>\
                     </div>\
                 </div>'.format(item.name, item.image_url(),
-                               reverse("menu:item", kwargs={"id": item.pk}), item.name,
+                               reverse("menu:item", kwargs={"item_id": item.pk}), item.name,
                                item.id, pieces,
                                edit,
                                item.id, item.final_price() * quantity)

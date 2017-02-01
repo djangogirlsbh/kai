@@ -1,6 +1,6 @@
 appdirs==1.4.0
 Django==1.10.5
-django-appconf==1.0.2
+django-appconf==1.0.1
 django-compressor==2.1
 django-sass-processor==0.5.3
 libsass==0.12.3
