@@ -25,5 +25,5 @@ urlpatterns = [
     url(r'^deals$', views.deals, name="deals"),
     url(r'^basket$', views.basket, name="basket"),
     url(r'^finder$', views.finder, name="finder"),
-    url(r'^i/(?P<id>[0-9]+)$', views.item, name="item"),
+    url(r'^i/(?P<item_id>[0-9]+)$', views.item, name="item"),
 ]
